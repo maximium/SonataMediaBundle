@@ -113,6 +113,7 @@ class SonataMediaExtension extends Extension
 
         $container->setParameter('sonata.media.resizer.simple.adapter.mode', $config['resizer']['simple']['mode']);
         $container->setParameter('sonata.media.resizer.square.adapter.mode', $config['resizer']['square']['mode']);
+        $container->setParameter('sonata.media.resizer.advanced.adapter.mode', $config['resizer']['advanced']['mode']);
 
         $this->configureParameterClass($container, $config);
         $this->configureExtra($container, $config);

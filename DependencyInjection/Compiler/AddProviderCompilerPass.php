@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Imagine\Image\ImageInterface;
 
 /**
  *
@@ -42,7 +43,10 @@ class AddProviderCompilerPass implements CompilerPassInterface
                 'width'         => 100,
                 'format'        => 'jpg',
                 'height'        => false,
-                'constraint'    => true
+                'constraint'    => true,
+            	'crop'			=> false,
+            	'fill'			=> false,
+            	//'mode'			=> ImageInterface::THUMBNAIL_INSET
             )));
         }
     }
@@ -130,6 +134,9 @@ class AddProviderCompilerPass implements CompilerPassInterface
                     $config['format']       = isset($config['format'])  ? $config['format'] : 'jpg';
                     $config['height']       = isset($config['height'])  ? $config['height'] : false;
                     $config['constraint']   = isset($config['constraint'])  ? $config['constraint'] : true;
+                    $config['crop']   = isset($config['crop'])  ? $config['crop'] : false;
+                    $config['fill']   = isset($config['fill'])  ? $config['fill'] : false;
+                    //$config['mode']   = isset($config['mode'])  ? $config['mode'] : ImageInterface::THUMBNAIL_INSET;
 
                     $formatName = sprintf('%s_%s', $name, $format);
                     $definition->addMethodCall('addFormat', array($formatName, $config));

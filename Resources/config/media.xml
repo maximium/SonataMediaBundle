@@ -6,6 +6,7 @@
     <parameters>
         <parameter key="sonata.media.resizer.simple.class">Sonata\MediaBundle\Resizer\SimpleResizer</parameter>
         <parameter key="sonata.media.resizer.square.class">Sonata\MediaBundle\Resizer\SquareResizer</parameter>
+        <parameter key="sonata.media.resizer.advanced.class">Sonata\MediaBundle\Resizer\AdvancedResizer</parameter>
     </parameters>
 
     <services>
@@ -22,6 +23,11 @@
         <service id="sonata.media.resizer.square" class="%sonata.media.resizer.square.class%">
             <argument type="service" id="sonata.media.adapter.image.gd" />
             <argument>%sonata.media.resizer.square.adapter.mode%</argument>
+        </service>
+        
+        <service id="sonata.media.resizer.advanced" class="%sonata.media.resizer.advanced.class%">
+            <argument type="service" id="sonata.media.adapter.image.gd" />
+            <argument>%sonata.media.resizer.advanced.adapter.mode%</argument>
         </service>
 
         <!-- CDN abstraction service -->

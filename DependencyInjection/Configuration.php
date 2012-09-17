@@ -13,6 +13,7 @@ namespace Sonata\MediaBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Imagine\Image\ImageInterface;
 
 /**
  * This is the class that validates and merges configuration from your app/config files
@@ -81,6 +82,13 @@ class Configuration implements ConfigurationInterface
                                         ->scalarNode('quality')->defaultValue(80)->end()
                                         ->scalarNode('format')->defaultValue('jpg')->end()
                                         ->scalarNode('constraint')->defaultValue(true)->end()
+                                        ->booleanNode('crop')->defaultValue(false)->end()
+                                        ->variableNode('fill')->defaultValue(false)->end()
+                                        ->scalarNode('mode')
+							                ->validate()
+							                    ->ifNotInArray(array(ImageInterface::THUMBNAIL_INSET, ImageInterface::THUMBNAIL_OUTBOUND))
+							                    ->thenInvalid('Invalid thumbnail resize mode "%s"')
+                                        	->end()
                                     ->end()
                                 ->end()
                             ->end()
@@ -376,6 +384,12 @@ class Configuration implements ConfigurationInterface
                             ->children()
                                 ->scalarNode('mode')->defaultValue('inset')->end()
                             ->end()
+                        ->end()
+                        ->arrayNode('advanced')
+	                        ->addDefaultsIfNotSet()
+	                        ->children()
+	                            ->scalarNode('mode')->defaultValue('inset')->end()
+	                        ->end()
                         ->end()
                     ->end()
                 ->end()
