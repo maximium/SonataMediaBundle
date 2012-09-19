@@ -142,7 +142,8 @@ class MediaExtension extends \Twig_Extension
            ->getProvider($media->getProviderName());
 
         $format = $provider->getFormatName($media, $format);
-        $format_definition = $provider->getFormat($format);
+        $box = $provider->getResizer()->getBox($media, $provider->getFormat($format));
+        $format_definition = array('width' => $box->getWidth(), 'height' => $box->getHeight());  //$provider->getFormat($format);
 
         // build option
         $defaultOptions = array(
